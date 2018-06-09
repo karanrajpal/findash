@@ -29,6 +29,7 @@ class StockTable extends React.Component {
                         <th>Change (%)</th>
                         <th>Latest Volume</th>
                         <th>Sector</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>

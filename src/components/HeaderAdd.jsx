@@ -20,22 +20,26 @@ class HeaderAdd extends React.Component {
             addSymbol,
         } = this.props;
 
-        return (<div className='header-add'>
-            <div className='header-add__info'>
-                <div>Refresh Interval: {refreshInterval}</div>
-                <div>Market Status: {marketOpen}</div>
-            </div>
-            <div className='mui-textfield'>
-                <input
-                    type='text'
-                    className='header-add__add'
-                    placeholder='Add Symbol'
-                    onKeyDown={(event) => {
-                        if (event.key === 'Enter') {
-                            addSymbol(event.target.value);
-                        }
-                    }}
-                />
+        return (<div>
+            <div className='headline mui--text-headline'>Findash</div>
+            <div className='header-add'>
+                <div className='header-add__info'>
+                    <div>Refresh Interval: {refreshInterval}</div>
+                    <div>Market Status: {marketOpen}</div>
+                </div>
+                <div className='mui-textfield'>
+                    <input
+                        type='text'
+                        className='header-add__add'
+                        placeholder='Add Symbol'
+                        onKeyDown={(event) => {
+                            if (event.key === 'Enter') {
+                                addSymbol(event.target.value);
+                                event.target.value = '';
+                            }
+                        }}
+                    />
+                </div>
             </div>
         </div>);
     }

@@ -26,7 +26,7 @@ class App extends React.Component {
     }
 
     render() {
-        return (<div>
+        return (<div className='mui-container-fluid'>
             <WidgetWrapper>
                 <HeaderAdd />
             </WidgetWrapper>

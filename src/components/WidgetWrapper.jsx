@@ -5,8 +5,7 @@ import '../styles/stocks.scss';
 
 class WidgetWrapper extends React.Component {
     render() {
-        return <div className='widget-wrapper'>
-            <div className='widget-wrapper__title-bar' />
+        return <div className='widget-wrapper mui-panel'>
             <div className='widget-wrapper__content'>
                 {this.props.children}
             </div>

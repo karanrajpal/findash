@@ -1,0 +1,26 @@
+.widget-wrapper {
+	border: 1px solid #DDD;
+	margin: 10px;
+
+	&__title-bar {
+		height: 10px;
+		background-color: #EEEEEE;
+		border-bottom: 1px solid #DDDDDD;
+	}
+
+	&__content {
+		padding: 10px;
+	}
+}
+
+.stock-table {
+	.red {
+		background-color: rgba(255, 0, 0, 0.3);
+	}
+	.green {
+		background-color: rgba(0, 255, 0, 0.3);
+	}
+	.button-add-symbol {
+		cursor: pointer;
+	}
+}

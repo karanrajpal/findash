@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-// import Button from 'muicss/lib/react/button';
 
 import { pricesSelector } from '../state/selectors/stock-selectors';
 import { removeSymbol } from '../state/actions/actions.js';
@@ -35,17 +34,28 @@ class StockTable extends React.Component {
                 <tbody>
                     {Object.keys(prices).map((symbol) => {
                         const quote = prices[symbol].quote;
-                        return <tr key={symbol} data-key={symbol} className={quote.changePercent > 0 ? 'green' : 'red'}>
-                            <td>{quote.symbol}</td>
-                            <td>{quote.latestPrice}</td>
-                            <td>{quote.change}</td>
-                            <td>{quote.changePercent}</td>
-                            <td>{quote.latestVolume}</td>
-                            <td>{quote.sector}</td>
-                            <td onClick={(event) => {
-                                removeSymbol(event.target.parentElement.getAttribute('data-key'));
-                            }}>Delete</td>
-                        </tr>
+                        const rgbOpacity = Math.min(Math.abs(quote.changePercent) * 20, 1);
+                        let backgroundColor = `rgba(255, 0, 0, ${rgbOpacity})`;
+                        if (quote.changePercent > 0) {
+                            backgroundColor = `rgba(0, 255, 0, ${rgbOpacity})`;
+                        }
+                        return (
+                            <tr
+                                key={symbol}
+                                data-key={symbol}
+                                style={{ backgroundColor: backgroundColor }}
+                            >
+                                <td title={quote.companyName}>{quote.symbol}</td>
+                                <td>{quote.latestPrice}</td>
+                                <td>{quote.change}</td>
+                                <td>{(quote.changePercent * 100).toFixed(3)}</td>
+                                <td>{quote.latestVolume}</td>
+                                <td>{quote.sector}</td>
+                                <td onClick={(event) => {
+                                    removeSymbol(event.target.parentElement.getAttribute('data-key'));
+                                }}>Delete</td>
+                            </tr>
+                        )
                     })}
                 </tbody>
             </table>

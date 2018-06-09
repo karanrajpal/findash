@@ -5,6 +5,7 @@ export default class IexService {
 
 	async fetchPrices(symbols) {
 		const url = `${this.url}?types=quote&symbols=${symbols.join(',')}`;
+		// const url = `${this.url}?types=quote,news,chart&symbols=${symbols.join(',')}`;
 		const response = await fetch(url);
 		return response.json();
 	}

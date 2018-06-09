@@ -1,0 +1,36 @@
+{
+  "name": "findash",
+  "version": "1.0.0",
+  "description": "Dashboard for stocks",
+  "main": "src/index.jsx",
+  "scripts": {
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development"
+  },
+  "author": "Karan Rajpal <karanrajpal001@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "node-sass": "^4.9.0",
+    "react-hot-loader": "^4.2.0",
+    "redux-saga": "^0.16.0",
+    "reselect": "^3.0.1",
+    "sass-loader": "^7.0.2",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^3.0.1",
+    "webpack-dev-server": "^3.1.4"
+  },
+  "dependencies": {
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0"
+  }
+}

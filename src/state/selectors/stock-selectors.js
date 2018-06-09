@@ -8,7 +8,7 @@ export const marketOpenSelector = (state) => {
 	const hour = d.getHours();
 	const minute = d.getMinutes();
 	const day = d.getDay();
-	if (day === 0 || day === 7) {
+	if (day === 0 || day === 6) {
 		return 'Closed';
 	} else if ((hour > 9 && hour <= 16) || (hour === 9 && minute >= 30)) {
 		return 'Open';

@@ -24,3 +24,18 @@
 		cursor: pointer;
 	}
 }
+
+.header-add {
+	display: flex;
+
+	&__info {
+		flex: 2;
+		align-items: inherit;
+	    display: flex;
+	    justify-content: center;
+	    flex-direction: column;
+	}
+	&__add {
+		flex: 1;
+	}
+}

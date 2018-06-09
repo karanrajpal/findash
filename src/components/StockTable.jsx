@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 // import Button from 'muicss/lib/react/button';
 
-import { pricesSelector } from '../selectors/stock-selectors';
+import { pricesSelector } from '../state/selectors/stock-selectors';
+import { removeSymbol } from '../state/actions/actions.js';
 
 import '../styles/stocks.scss';
 
@@ -14,7 +15,8 @@ class StockTable extends React.Component {
     }
     render() {
         const {
-            prices
+            prices,
+            removeSymbol,
         } = this.props;
 
         return <div className='stock-table'>
@@ -32,18 +34,18 @@ class StockTable extends React.Component {
                 <tbody>
                     {Object.keys(prices).map((symbol) => {
                         const quote = prices[symbol].quote;
-                        return <tr key={symbol} className={quote.changePercent > 0 ? 'green' : 'red'}>
+                        return <tr key={symbol} data-key={symbol} className={quote.changePercent > 0 ? 'green' : 'red'}>
                             <td>{quote.symbol}</td>
                             <td>{quote.latestPrice}</td>
                             <td>{quote.change}</td>
                             <td>{quote.changePercent}</td>
                             <td>{quote.latestVolume}</td>
                             <td>{quote.sector}</td>
+                            <td onClick={(event) => {
+                                removeSymbol(event.target.parentElement.getAttribute('data-key'));
+                            }}>Delete</td>
                         </tr>
                     })}
-                    <tr key='add'>
-                        <td><button className='button-add-symbol' onClick = {() => { show }}>Add Symbol</button></td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -54,5 +56,7 @@ export default connect(
     (state) => ({
         prices: pricesSelector(state),
     }),
-    null
+    (dispatch) => ({
+        removeSymbol: (symbol) => dispatch(removeSymbol(symbol))
+    }),
 )(StockTable);

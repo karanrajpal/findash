@@ -4,7 +4,7 @@ import * as Actions from '../actions/actions.js';
 
 import { symbolsSelector } from '../selectors/stock-selectors';
 
-import IexService from '../services/iex-service';
+import IexService from '../../services/iex-service';
 
 const iexService = new IexService();
 
@@ -20,4 +20,6 @@ function* fetchPrices() {
 
 export default [
     takeLatest(Actions.FETCH_PRICES, fetchPrices),
+    takeLatest(Actions.ADD_SYMBOL, fetchPrices),
+    takeLatest(Actions.REMOVE_SYMBOL, fetchPrices)
 ];

@@ -18,8 +18,38 @@ function* fetchPrices() {
     }
 }
 
+function* addSymbol(action) {
+    try {
+        const newSymbols = yield select(symbolsSelector);
+        const newSymbol = action.symbol.toUpperCase();
+        const newSymbolLocation = newSymbols.indexOf(newSymbol);
+        if (newSymbolLocation < 0) {
+            newSymbols.push(newSymbol);
+        }
+        yield put(Actions.setSymbols(newSymbols));
+        yield fetchPrices();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function* removeSymbol(action) {
+    try {
+        const newSymbols = yield select(symbolsSelector);
+        const deleteSymbol = action.symbol.toUpperCase();
+        const deleteSymbolLocation = newSymbols.indexOf(deleteSymbol);
+        if (deleteSymbolLocation >= 0) {
+            newSymbols.splice(newSymbols.indexOf(deleteSymbol), 1);
+        }
+        yield put(Actions.setSymbols(newSymbols));
+        yield fetchPrices();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export default [
     takeLatest(Actions.FETCH_PRICES, fetchPrices),
-    takeLatest(Actions.ADD_SYMBOL, fetchPrices),
-    takeLatest(Actions.REMOVE_SYMBOL, fetchPrices)
+    takeLatest(Actions.ADD_SYMBOL, addSymbol),
+    takeLatest(Actions.REMOVE_SYMBOL, removeSymbol)
 ];

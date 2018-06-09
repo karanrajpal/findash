@@ -1,6 +1,5 @@
 import {
-    ADD_SYMBOL,
-    REMOVE_SYMBOL,
+    SET_SYMBOLS,
     RECEIVE_PRICES
 } from '../actions/actions.js';
 
@@ -13,28 +12,10 @@ const initialState = {
 
 const stockReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_SYMBOL: {
-            const newSymbols = state.symbols;
-            const newSymbol = action.symbol.toUpperCase();
-            const newSymbolLocation = newSymbols.indexOf(newSymbol);
-            if (newSymbolLocation < 0) {
-                newSymbols.push(newSymbol);
-            }
+        case SET_SYMBOLS: {
             return {
                 ...state,
-                symbols: newSymbols,
-            };
-        }
-        case REMOVE_SYMBOL: {
-            const newSymbols = state.symbols;
-            const deleteSymbol = action.symbol;
-            const deleteSymbolLocation = newSymbols.indexOf(deleteSymbol);
-            if (deleteSymbolLocation >= 0) {
-                newSymbols.splice(newSymbols.indexOf(deleteSymbol), 1);
-            }
-            return {
-                ...state,
-                symbols: newSymbols,
+                symbols: action.symbols,
             };
         }
         case RECEIVE_PRICES: {

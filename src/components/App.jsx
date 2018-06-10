@@ -12,6 +12,7 @@ import WidgetWrapper from './WidgetWrapper';
 import StockTable from './StockTable';
 import HeaderAdd from './HeaderAdd';
 import ComparisonGraph from './ComparisonGraph';
+import NewsList from './NewsList';
 
 class App extends React.Component {
     constructor(props) {
@@ -32,6 +33,7 @@ class App extends React.Component {
             <WidgetWrapper><HeaderAdd /></WidgetWrapper>
             <WidgetWrapper><StockTable /></WidgetWrapper>
             <WidgetWrapper><ComparisonGraph /></WidgetWrapper>
+            <WidgetWrapper><NewsList /></WidgetWrapper>
         </div>)
     }
 };

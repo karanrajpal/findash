@@ -23,7 +23,6 @@ export const graphDataSelector = createSelector(
     [stockDataSelector],
     (stockData) => {
         let transformedChartData = [];
-        console.log(Object.values(stockData));
         if (!stockData) {
             return [];
         }
@@ -44,8 +43,40 @@ export const graphDataSelector = createSelector(
             });
             return stockChartData;
         });
-        console.log(transformedChartData);
+        // console.log(transformedChartData);
         return transformedChartData;
+    }
+);
+
+// Specific to Iex API
+const urlToId = (url) => {
+    return url.substr(url.lastIndexOf('/')+1);
+};
+
+export const newsDataSelector = createSelector(
+    [stockDataSelector],
+    (stockData) => {
+        if (!stockData) {
+            return [];
+        }
+        const stockDataValues = Object.values(stockData);
+        const uniqueNewsById = {};
+        stockDataValues.forEach(stock => {
+            const news = stock['news'];
+            const symbol = stock.quote.symbol;
+            news.forEach(newsItem => {
+                const newsId = urlToId(newsItem['url']);
+                if (newsId in uniqueNewsById) {
+                    uniqueNewsById[newsId]['symbols'].push(symbol);
+                } else {
+                    uniqueNewsById[newsId] = {
+                        ...newsItem,
+                        symbols: [symbol],
+                    };
+                }
+            });
+        });
+        return Object.values(uniqueNewsById);
     }
 );
 

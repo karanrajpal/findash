@@ -34,3 +34,14 @@
 .comparison-graph {
 	height: 900px;
 }
+
+.news-list {
+	&__news-item {
+		margin: 10px;
+	}
+
+	&__source {
+		color: #999;
+		margin-top: 20px;
+	}
+}

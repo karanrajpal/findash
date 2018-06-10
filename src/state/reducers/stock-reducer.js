@@ -1,6 +1,7 @@
 import {
     SET_SYMBOLS,
-    RECEIVE_PRICES
+    RECEIVE_PRICES,
+    SET_VIEWABLE_SYMBOLS,
 } from '../actions/actions.js';
 
 const initialState = {
@@ -8,6 +9,7 @@ const initialState = {
     prices: {},
     refreshInterval: 1000,  // 1 second
     refreshIntervalMarketClosed: 20000, // 20 seconds
+    viewableSymbols: ['TWTR', 'FB', 'AAPL'],
 };
 
 const stockReducer = (state = initialState, action) => {
@@ -22,6 +24,12 @@ const stockReducer = (state = initialState, action) => {
             return {
                 ...state,
                 prices: action.prices,
+            };
+        }
+        case SET_VIEWABLE_SYMBOLS: {
+            return {
+                ...state,
+                viewableSymbols: action.viewableSymbols,
             };
         }
         default:

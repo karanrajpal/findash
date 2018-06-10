@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
 import { stockDataSelector } from '../state/selectors/stock-selectors';
-import { removeSymbol } from '../state/actions/actions.js';
+import { removeSymbol, toggleSymbol } from '../state/actions/actions.js';
 
 import '../styles/stocks.scss';
 
@@ -42,7 +42,7 @@ class StockTable extends React.Component {
                         return (
                             <tr
                                 key={symbol}
-                                data-key={symbol}
+                                data-symbol={symbol}
                                 style={{ backgroundColor: backgroundColor }}
                             >
                                 <td title={quote.companyName}>{quote.symbol}</td>
@@ -51,9 +51,16 @@ class StockTable extends React.Component {
                                 <td>{(quote.changePercent * 100).toFixed(3)}</td>
                                 <td>{quote.latestVolume}</td>
                                 <td>{quote.sector}</td>
-                                <td onClick={(event) => {
-                                    removeSymbol(event.target.parentElement.getAttribute('data-key'));
-                                }}>Delete</td>
+                                <td>
+                                    <i className='material-icons stock-table__delete' onClick={(event) => {
+                                        const rowDataSymbol = event.target.parentElement.parentElement.getAttribute('data-symbol');
+                                        removeSymbol(rowDataSymbol);
+                                    }}>delete</i>
+                                    <i className='material-icons stock-table__visibility' onClick={(event) => {
+                                        const rowDataSymbol = event.target.parentElement.parentElement.getAttribute('data-symbol');
+                                        toggleSymbol(rowDataSymbol);
+                                    }}>visibility</i>
+                                </td>
                             </tr>
                         )
                     })}
@@ -68,6 +75,7 @@ export default connect(
         stockData: stockDataSelector(state),
     }),
     (dispatch) => ({
-        removeSymbol: (symbol) => dispatch(removeSymbol(symbol))
+        removeSymbol: (symbol) => dispatch(removeSymbol(symbol)),
+        toggleSymbol: (symbol) => dispatch(toggleSymbol(symbol)),
     }),
 )(StockTable);

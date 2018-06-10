@@ -39,9 +39,26 @@ function* removeSymbol(action) {
         const deleteSymbol = action.symbol.toUpperCase();
         const deleteSymbolLocation = newSymbols.indexOf(deleteSymbol);
         if (deleteSymbolLocation >= 0) {
-            newSymbols.splice(newSymbols.indexOf(deleteSymbol), 1);
+            newSymbols.splice(deleteSymbolLocation, 1);
         }
         yield put(Actions.setSymbols(newSymbols));
+        yield fetchPrices();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function* toggleViewability(action) {
+    try {
+        const newViewableSymbols = yield select(viewableSymbolsSelector);
+        const toggleSymbol = action.symbol.toUpperCase();
+        const toggleSymbolLocation = newViewableSymbols.indexOf(toggleSymbol);
+        if (toggleSymbolLocation >= 0) {
+            newViewableSymbols.splice(toggleSymbolLocation, 1);
+        } else {
+            newViewableSymbols.push(toggleSymbol);
+        }
+        yield put(Actions.setViewableSymbols(newViewableSymbols));
         yield fetchPrices();
     } catch (error) {
         console.error(error);
@@ -51,5 +68,6 @@ function* removeSymbol(action) {
 export default [
     takeLatest(Actions.FETCH_PRICES, fetchPrices),
     takeLatest(Actions.ADD_SYMBOL, addSymbol),
-    takeLatest(Actions.REMOVE_SYMBOL, removeSymbol)
+    takeLatest(Actions.REMOVE_SYMBOL, removeSymbol),
+    takeLatest(Actions.TOGGLE_VIEWABILITY, toggleViewability),
 ];

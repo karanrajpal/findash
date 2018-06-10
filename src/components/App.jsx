@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import WidgetWrapper from './WidgetWrapper';
 
 // selectors for state
 import { refreshIntervalSelector, marketOpenSelector } from '../state/selectors/stock-selectors';
 
 // actions for dispatch
 import { fetchPrices } from '../state/actions/actions.js';
+
+import WidgetWrapper from './WidgetWrapper';
 import StockTable from './StockTable';
 import HeaderAdd from './HeaderAdd';
+import ComparisonGraph from './ComparisonGraph';
 
 class App extends React.Component {
     constructor(props) {
@@ -27,12 +29,9 @@ class App extends React.Component {
 
     render() {
         return (<div className='mui-container-fluid'>
-            <WidgetWrapper>
-                <HeaderAdd />
-            </WidgetWrapper>
-            <WidgetWrapper>
-                <StockTable />
-            </WidgetWrapper>
+            <WidgetWrapper><HeaderAdd /></WidgetWrapper>
+            <WidgetWrapper><StockTable /></WidgetWrapper>
+            <WidgetWrapper><ComparisonGraph /></WidgetWrapper>
         </div>)
     }
 };

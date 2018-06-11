@@ -3,8 +3,8 @@ export const REMOVE_SYMBOL = 'REMOVE_SYMBOL';
 export const SET_SYMBOLS = 'SET_SYMBOLS';
 export const FETCH_PRICES = 'FETCH_PRICES';
 export const RECEIVE_PRICES = 'RECEIVE_PRICES';
-export const TOGGLE_VIEWABILITY = 'TOGGLE_VIEWABILITY';
-export const SET_VIEWABLE_SYMBOLS = 'SET_VIEWABLE_SYMBOLS';
+export const TOGGLE_VISIBILITY = 'TOGGLE_VISIBILITY';
+export const SET_VISIBLE_SYMBOLS = 'SET_VISIBLE_SYMBOLS';
 
 export const fetchPrices = () => ({
     type: FETCH_PRICES,
@@ -25,8 +25,8 @@ export const removeSymbol = (symbol) => ({
 	symbol,
 });
 
-export const toggleViewability = (symbol) => ({
-	type: TOGGLE_VIEWABILITY,
+export const toggleVisibility = (symbol) => ({
+	type: TOGGLE_VISIBILITY,
 	symbol,
 });
 
@@ -35,7 +35,7 @@ export const setSymbols = (symbols) => ({
 	symbols,
 });
 
-export const setVisibleSymbols = (viewableSymbols) => ({
-	type: SET_VIEWABLE_SYMBOLS,
-	viewableSymbols,
+export const setVisibleSymbols = (visibleSymbols) => ({
+	type: SET_VISIBLE_SYMBOLS,
+	visibleSymbols,
 });

@@ -9,7 +9,7 @@ const initialState = {
     prices: {},
     refreshInterval: 1000,  // 1 second
     refreshIntervalMarketClosed: 20000, // 20 seconds
-    viewableSymbols: ['TWTR', 'FB', 'AAPL'],
+    visibleSymbols: ['TWTR', 'FB', 'AAPL'],
 };
 
 const stockReducer = (state = initialState, action) => {
@@ -29,7 +29,7 @@ const stockReducer = (state = initialState, action) => {
         case SET_VIEWABLE_SYMBOLS: {
             return {
                 ...state,
-                viewableSymbols: action.viewableSymbols,
+                visibleSymbols: action.visibleSymbols,
             };
         }
         default:

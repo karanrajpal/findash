@@ -2,7 +2,7 @@ import { put, call, takeLatest, select } from 'redux-saga/effects';
 
 import * as Actions from '../actions/actions.js';
 
-import { symbolsSelector } from '../selectors/stock-selectors';
+import { symbolsSelector, visibleSymbolsSelector } from '../selectors/stock-selectors';
 
 import IexService from '../../services/iex-service';
 
@@ -27,7 +27,7 @@ function* addSymbol(action) {
             newSymbols.push(newSymbol);
         }
         yield put(Actions.setSymbols(newSymbols));
-        yield fetchPrices();
+        yield toggleVisibility({ symbol: newSymbol });
     } catch (error) {
         console.error(error);
     }
@@ -48,17 +48,17 @@ function* removeSymbol(action) {
     }
 }
 
-function* toggleViewability(action) {
+function* toggleVisibility(action) {
     try {
-        const newViewableSymbols = yield select(viewableSymbolsSelector);
+        const newVisibleSymbols = yield select(visibleSymbolsSelector);
         const toggleSymbol = action.symbol.toUpperCase();
-        const toggleSymbolLocation = newViewableSymbols.indexOf(toggleSymbol);
+        const toggleSymbolLocation = newVisibleSymbols.indexOf(toggleSymbol);
         if (toggleSymbolLocation >= 0) {
-            newViewableSymbols.splice(toggleSymbolLocation, 1);
+            newVisibleSymbols.splice(toggleSymbolLocation, 1);
         } else {
-            newViewableSymbols.push(toggleSymbol);
+            newVisibleSymbols.push(toggleSymbol);
         }
-        yield put(Actions.setViewableSymbols(newViewableSymbols));
+        yield put(Actions.setVisibleSymbols(newVisibleSymbols));
         yield fetchPrices();
     } catch (error) {
         console.error(error);
@@ -69,5 +69,5 @@ export default [
     takeLatest(Actions.FETCH_PRICES, fetchPrices),
     takeLatest(Actions.ADD_SYMBOL, addSymbol),
     takeLatest(Actions.REMOVE_SYMBOL, removeSymbol),
-    takeLatest(Actions.TOGGLE_VIEWABILITY, toggleViewability),
+    takeLatest(Actions.TOGGLE_VISIBILITY, toggleVisibility),
 ];

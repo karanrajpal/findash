@@ -1,7 +1,21 @@
 import { createSelector } from 'reselect';
 
 export const symbolsSelector = (state) => state.stocks.symbols;
+export const visibleSymbolsSelector = (state) => state.stocks.visibleSymbols;
 export const stockDataSelector = (state) => state.stocks.prices;
+export const filteredStockDataSelector = createSelector(
+    [stockDataSelector, visibleSymbolsSelector],
+    (stockData, visibleSymbols) => {
+        const filteredStockData = Object.keys(stockData)
+        .filter(key => visibleSymbols.includes(key))
+        .reduce((obj, key) => ({
+            ...obj,
+            [key]: stockData[key]
+        }),
+        {});
+        return filteredStockData;
+    }
+);
 
 export const marketOpenSelector = (state) => {
     const d = new Date(); // for now
@@ -20,7 +34,7 @@ export const marketOpenSelector = (state) => {
 };
 
 export const graphDataSelector = createSelector(
-    [stockDataSelector],
+    [filteredStockDataSelector],
     (stockData) => {
         let transformedChartData = [];
         if (!stockData) {
@@ -54,7 +68,7 @@ const urlToId = (url) => {
 };
 
 export const newsDataSelector = createSelector(
-    [stockDataSelector],
+    [filteredStockDataSelector],
     (stockData) => {
         if (!stockData) {
             return [];

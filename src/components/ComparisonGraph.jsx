@@ -19,7 +19,8 @@ class ComparisonGraph extends React.Component {
         } = this.props;
 
         return <div className='comparison-graph'>
-             <ResponsiveLine
+            <div className='mui--text-title'>Comparison Chart</div>
+            {graphData.length > 0 && <ResponsiveLine
                 data={graphData}
                 margin={{
                     "top": 50,
@@ -72,6 +73,7 @@ class ComparisonGraph extends React.Component {
                     }
                 ]}
             />
+        }
         </div>
     }
 };

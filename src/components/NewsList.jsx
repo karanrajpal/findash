@@ -22,9 +22,10 @@ class NewsList extends React.Component {
         const {
             newsData,
         } = this.props;
-        console.log(newsData);
+        // console.log(newsData);
 
         return <div className='news-list'>
+            <div className='mui--text-title'>News</div>
             <ul className='mui-list--unstyled'>
             {
                 newsData.map((item, idx) => {

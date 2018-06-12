@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
 // selectors for state
-import { refreshIntervalSelector, marketOpenSelector } from '../state/selectors/stock-selectors';
+import { marketOpenSelector } from '../state/selectors/stock-selectors';
+import { refreshIntervalSelector } from '../state/selectors/config-selectors';
 
 // actions for dispatch
 import { fetchPrices } from '../state/actions/actions.js';
@@ -25,7 +26,11 @@ class App extends React.Component {
         } = this.props;
 
         fetchPrices();
-        setInterval(fetchPrices, refreshInterval);
+        if (refreshInterval >== 1000) {
+            setInterval(fetchPrices, refreshInterval);
+        } else {
+            console.error('Something with refreshInterval');
+        }
     }
 
     render() {

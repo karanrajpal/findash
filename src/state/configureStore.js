@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './reducers';
 import { loadState, saveState } from './localStorage';
+import throttle from 'lodash/throttle';
 
 // redux-sagas middleware
 // https://github.com/redux-saga/redux-saga
@@ -13,15 +14,17 @@ import rootSaga from './sagas';
 const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(initialState) {
-	let persistedState = loadState();
-	if (!persistedState) {
-		persistedState = initialState;
-	}
+    let persistedState = loadState();
+    if (!persistedState) {
+        persistedState = initialState;
+    }
     const store = createStore(rootReducer, persistedState, applyMiddleware(sagaMiddleware));
 
-    store.subscribe(() => {
-    	saveState(store.getState());
-    });
+    store.subscribe(throttle(() => {
+        saveState({
+            stocks: store.getState().stocks
+        });
+    }, 1000));
 
     sagaMiddleware.run(rootSaga);
 

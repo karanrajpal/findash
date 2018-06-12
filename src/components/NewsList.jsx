@@ -15,14 +15,15 @@ class NewsList extends React.Component {
     }
 
     clean(text) {
-        return text.replace('&apos;', '\'');
+        return text
+        .replace(/&apos;/g, '\'')
+        .replace(/&amp;/g, '&');
     }
 
     render() {
         const {
             newsData,
         } = this.props;
-        // console.log(newsData);
 
         return <div className='news-list'>
             <div className='mui--text-title'>News</div>

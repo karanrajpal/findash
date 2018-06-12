@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-// import Button from 'muicss/lib/react/button';
 
-import { refreshIntervalSelector, marketOpenSelector } from '../state/selectors/stock-selectors';
+import { marketOpenSelector, refreshIntervalSelector } from '../state/selectors/config-selectors';
 import { addSymbol } from '../state/actions/actions.js';
 
 import '../styles/stocks.scss';
@@ -28,10 +27,10 @@ class HeaderAdd extends React.Component {
                     <div>Market Status: {marketOpen}</div>
                 </div>
                 <div className='mui-textfield'>
+                    <label>Add Symbol</label>
                     <input
                         type='text'
                         className='header-add__add'
-                        placeholder='Add Symbol'
                         onKeyDown={(event) => {
                             if (event.key === 'Enter') {
                                 addSymbol(event.target.value);

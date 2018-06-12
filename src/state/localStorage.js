@@ -1,6 +1,7 @@
 export const loadState = () => {
 	try {
 		const serializedState = localStorage.getItem('state');
+		// const serializedState = null;
 		if (serializedState === null) {
 			return undefined;	// so the reducer can use the default state
 		}

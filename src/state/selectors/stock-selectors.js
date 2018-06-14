@@ -46,6 +46,43 @@ export const graphDataSelector = createSelector(
     }
 );
 
+
+
+// Clean News Text
+const clean = (text) => {
+    return text
+    .replace(/&apos;/g, '\'')
+    .replace(/&amp;/g, '&');
+};
+
+function timeSince(date) {
+
+  var seconds = Math.floor((new Date() - date) / 1000);
+
+  var interval = Math.floor(seconds / 31536000);
+
+  if (interval > 1) {
+    return interval + " years";
+  }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+    return interval + " months";
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+    return interval + " days";
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    return interval + " hours";
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    return interval + " minutes";
+  }
+  return Math.floor(seconds) + " seconds";
+}
+
 // Specific to Iex API
 const urlToId = (url) => {
     return url.substr(url.lastIndexOf('/')+1);
@@ -67,6 +104,10 @@ export const newsDataSelector = createSelector(
                 if (newsId in uniqueNewsById) {
                     uniqueNewsById[newsId]['symbols'].push(symbol);
                 } else {
+                    newsItem['headline'] = clean(newsItem['headline']);
+                    newsItem['summary'] = clean(newsItem['summary']);
+                    var d = new Date(newsItem['datetime']);
+                    newsItem['timesince'] = timeSince(d);
                     uniqueNewsById[newsId] = {
                         ...newsItem,
                         symbols: [symbol],

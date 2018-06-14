@@ -10,14 +10,6 @@ class NewsList extends React.Component {
     constructor(props) {
         super(props);
         this.props = props;
-
-        this.clean = this.clean.bind(this);
-    }
-
-    clean(text) {
-        return text
-        .replace(/&apos;/g, '\'')
-        .replace(/&amp;/g, '&');
     }
 
     render() {
@@ -32,10 +24,13 @@ class NewsList extends React.Component {
                 newsData.map((item, idx) => {
                     return <li className='news-list__news-item mui-panel' key={idx}>
                         <div className='news-list__title'>
-                            <a href={item.url}>{this.clean(item.headline)}</a>
+                            <a href={item.url}>{item.headline}</a>
                         </div>
                         <div className='news-list__summary'>{item.summary}</div>
-                        <div className='news-list__source'>{item.source}</div>
+                        <div className='news-list__source'>
+                            <span>{item.source} · </span>
+                            <span>{item.timesince}</span>
+                        </div>
                         <div className='news-list__symbol'>{item.symbols.join(', ')}</div>
                     </li>
                 })

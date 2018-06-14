@@ -26,7 +26,7 @@ class App extends React.Component {
         } = this.props;
 
         fetchPrices();
-        if (refreshInterval >== 1000) {
+        if (refreshInterval >= 1000) {
             setInterval(fetchPrices, refreshInterval);
         } else {
             console.error('Something with refreshInterval');
